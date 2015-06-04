@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<icon>
+    <Line a="0.1:0.5" b="0.9:0.5" thickness="0.1" id="@+id/line_a"/>
+    <Line a="0.1:0.5" b="0.5:0.9" thickness="0.1" id="@+id/line_b"/>
+    <Line a="0.1:0.5" b="0.5:0.1" thickness="0.1" id="@+id/line_c"/>
+</icon>
