@@ -9,10 +9,11 @@ package com.cab404.iconic.numbers;
  * @author cab404
  */
 public class ShapeLink {
-    ShapeBundle a, b;
+    ShapeBundle a, b, c;
 
-    public ShapeLink(ShapeBundle a, ShapeBundle b) {
+    public ShapeLink(ShapeBundle a, ShapeBundle b, ShapeBundle c) {
         this.a = a;
         this.b = b;
+        this.c = c;
     }
 }

@@ -5,6 +5,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.XmlRes;
+import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -78,9 +79,10 @@ public class VectorIcon {
     }
 
     public void draw(Canvas cvs) {
-        for (ShapeBundle shape : iconData)
+        for (ShapeBundle shape : iconData) {
             //noinspection unchecked
             shape.processor.draw(cvs, paint, shape.data);
+        }
     }
 
 }

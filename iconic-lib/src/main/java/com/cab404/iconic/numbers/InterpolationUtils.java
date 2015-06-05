@@ -34,12 +34,12 @@ public class InterpolationUtils {
 
 
     /**
-     * log10(x*10)
+     * log₁₀(1+x*9)
      */
     public static final Interpolator IP_LOGARITHMIC = new Interpolator() {
         @Override
         public float getInterpolation(float input) {
-            return (float) Math.log10(input * 10f);
+            return (float) Math.log10(input * 9f + 1);
         }
     };
 

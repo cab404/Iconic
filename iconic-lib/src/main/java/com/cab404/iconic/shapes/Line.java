@@ -3,6 +3,7 @@ package com.cab404.iconic.shapes;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.animation.Interpolator;
 
@@ -63,6 +64,6 @@ public class Line implements ShapeProcessor<LineData> {
         SerializationUtils.parsePointF(lineData.a, xml.getAttributeValue(null, "a"));
         SerializationUtils.parsePointF(lineData.b, xml.getAttributeValue(null, "b"));
         lineData.thickness = xml.getAttributeFloatValue(null, "thickness", 0.1f);
-        lineData.color = xml.getAttributeIntValue(null, "color", 0xffffffff);
+        lineData.color = xml.getAttributeIntValue(null, "color", Color.CYAN);
     }
 }

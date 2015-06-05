@@ -28,9 +28,9 @@ public class TestActivity extends Activity {
 
         final VectorIconInterpolator vii = new VectorIconInterpolator();
         vii.newInterpolation(
-                new VectorIcon(this, R.xml.drawer),
                 new VectorIcon(this, R.xml.arrow),
-                InterpolationUtils.IP_LINEAR
+                new VectorIcon(this, R.xml.quad),
+                InterpolationUtils.IP_LOGARITHMIC
         );
 
         VectorIcon icon = vii.interpolate(0f);
@@ -39,7 +39,7 @@ public class TestActivity extends Activity {
         ((SeekBar) findViewById(R.id.progress)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                VectorIcon icon = vii.interpolate(progress / 1000f);
+                vii.interpolate(progress / 1000f);
             }
 
             @Override

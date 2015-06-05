@@ -4,8 +4,7 @@ import android.graphics.PointF;
 import android.util.Log;
 
 /**
- * Well, sorry for no comments here!
- * Still you can send me your question to me@cab404.ru!
+ * Simple methods to help storing and retrieving data from xml parameters.
  * <p/>
  * Created at 21:00 on 03/06/15
  *

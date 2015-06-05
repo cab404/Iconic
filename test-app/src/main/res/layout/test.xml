@@ -5,9 +5,9 @@
     >
     <ImageView
         android:layout_gravity="center"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:id="@+id/icon"/>
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:id="@+id/icon" />
 
     <SeekBar
         android:layout_width="match_parent"

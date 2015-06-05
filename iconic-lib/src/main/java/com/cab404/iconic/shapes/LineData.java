@@ -10,9 +10,9 @@ import android.graphics.PointF;
  * @author cab404
  */
 public class LineData {
-    public float thickness;
+    public float thickness = 0.1f;
     public int color;
-    public PointF a = new PointF(.5f, .5f), b = new PointF(.5f, .5f);
+    public PointF a = new PointF(.5f,.5f), b = new PointF(.5f,.5f);
 
     @Override
     public String toString() {

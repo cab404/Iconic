@@ -6,8 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.animation.Interpolator;
 
-import org.xmlpull.v1.XmlPullParser;
-
 /**
  * Renders shape on canvas and interpolates it between two states
  * <p/>
