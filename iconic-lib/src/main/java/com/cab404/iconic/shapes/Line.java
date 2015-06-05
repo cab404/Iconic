@@ -5,6 +5,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.view.animation.Interpolator;
 
 import com.cab404.iconic.numbers.InterpolationUtils;
@@ -24,13 +25,16 @@ public class Line implements ShapeProcessor<LineData> {
 
     @Override
     public void draw(Canvas cvs, Paint paint, LineData shape) {
+        float strokeWidth = shape.thickness * cvs.getWidth();
+        if (strokeWidth <= 0) return;
+
         buffer[0] = cvs.getWidth() * shape.a.x;
         buffer[1] = cvs.getHeight() * shape.a.y;
         buffer[2] = cvs.getWidth() * shape.b.x;
         buffer[3] = cvs.getHeight() * shape.b.y;
 
         paint.setColor(shape.color);
-        paint.setStrokeWidth(shape.thickness * cvs.getWidth());
+        paint.setStrokeWidth(strokeWidth);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         cvs.drawLines(buffer, paint);
@@ -44,6 +48,14 @@ public class Line implements ShapeProcessor<LineData> {
 
     @Override
     public void interpolate(float p, Interpolator i, LineData a, LineData b, LineData c) {
+        if (a == null ^ b == null) {
+            if (b == null) b = a;
+            c.a.set(b.a);
+            c.b.set(b.b);
+            c.thickness = InterpolationUtils.interpolateFloat(0, b.thickness, p, i);
+            c.color = b.color;
+            return;
+        }
         InterpolationUtils.interpolatePointF(a.a, b.a, c.a, p, i);
         InterpolationUtils.interpolatePointF(a.b, b.b, c.b, p, i);
         c.color = InterpolationUtils.interpolateColor(a.color, b.color, p, i);

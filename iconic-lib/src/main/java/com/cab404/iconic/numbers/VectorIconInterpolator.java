@@ -5,6 +5,7 @@ import android.view.animation.Interpolator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -19,8 +20,6 @@ public class VectorIconInterpolator {
 
     private Interpolator interpolator;
     private VectorIcon res;
-    private VectorIcon a;
-    private VectorIcon b;
 
     private List<ShapeLink> connections;
 
@@ -42,44 +41,58 @@ public class VectorIconInterpolator {
         this.connections = new ArrayList<>();
         this.interpolator = interpolator;
         this.res = new VectorIcon();
-        this.a = a;
-        this.b = b;
 
-        if (a.typeStamp == b.typeStamp) {
-            for (int i = 0; i < a.iconData.size(); i++) {
-                ShapeBundle as = a.iconData.get(i);
-                ShapeBundle bs = b.iconData.get(i);
-                //noinspection unchecked
-                ShapeBundle c = new ShapeBundle(as.processor, as.processor.makeDataStorage());
-                connections.add(new ShapeLink(as, bs, c));
-                res.iconData.add(c);
-            }
-        } else {
-            HashMap<Class, ShapeCounter> shapes = new HashMap<>();
-            for (ShapeBundle source : a.iconData) {
-                ShapeCounter counter;
-                if (!shapes.containsKey(source.processor.getClass()))
-                    shapes.put(source.processor.getClass(), counter = new ShapeCounter());
-                else
-                    counter = shapes.get(source.processor.getClass());
-                counter.shapes.add(source);
-            }
-            for (ShapeBundle dest : b.iconData) {
-                ShapeBundle c = new ShapeBundle(dest.processor, dest.processor.makeDataStorage());
+        HashMap<Class, ShapeCounter> shapes = indexIcon(a);
+        List<ShapeBundle> things = new ArrayList<>(a.iconData);
 
+        for (ShapeBundle dest : b.iconData) {
+            ShapeBundle c = new ShapeBundle(dest.processor, dest.processor.makeDataStorage());
+
+            ShapeLink link;
+            if (shapes.containsKey(dest.processor.getClass()))
+                link = new ShapeLink(shapes.get(dest.processor.getClass()).get(), dest, c);
+            else
+                link = new ShapeLink(new ShapeBundle(dest.processor, null), dest, c);
+
+            things.remove(link.a);
+            Log.e("Poof", "connection " + link.a + " → " + link.b + " :: " + link.c);
+            connections.add(link);
+            res.iconData.add(link.c);
+        }
+
+        if (!things.isEmpty()) {
+            Log.e("Poof", "Not finished yet");
+            shapes = indexIcon(b);
+
+            for (ShapeBundle source : things) {
+                ShapeBundle c = new ShapeBundle(source.processor, source.processor.makeDataStorage());
                 ShapeLink link;
-                if (shapes.containsKey(dest.processor.getClass()))
-                    link = new ShapeLink(shapes.get(dest.processor.getClass()).get(), dest, c);
+                if (shapes.containsKey(source.processor.getClass()))
+                    link = new ShapeLink(source, shapes.get(source.processor.getClass()).get(), c);
                 else
-                    link = new ShapeLink(null, dest, c);
+                    link = new ShapeLink(source, new ShapeBundle(source.processor, null), c);
 
                 Log.e("Poof", "connection " + link.a + " → " + link.b + " :: " + link.c);
                 connections.add(link);
                 res.iconData.add(link.c);
+
             }
         }
         Log.e("Poof", "ended up with " + res.iconData.size() + " figures");
 
+    }
+
+    protected HashMap<Class, ShapeCounter> indexIcon(VectorIcon a) {
+        HashMap<Class, ShapeCounter> shapes = new HashMap<>();
+        for (ShapeBundle source : a.iconData) {
+            ShapeCounter counter;
+            if (!shapes.containsKey(source.processor.getClass()))
+                shapes.put(source.processor.getClass(), counter = new ShapeCounter());
+            else
+                counter = shapes.get(source.processor.getClass());
+            counter.shapes.add(source);
+        }
+        return shapes;
     }
 
     public VectorIcon interpolate(float progress) {

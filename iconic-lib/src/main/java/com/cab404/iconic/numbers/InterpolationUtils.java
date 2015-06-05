@@ -54,10 +54,11 @@ public class InterpolationUtils {
      * Interpolates between two argb colors using a, r, g and b channels for float interpolation
      */
     public static int interpolateColor(int start, int end, float progress, Interpolator how) {
-        byte a = (byte) (Color.alpha(start) + (int) ((Color.alpha(end) - Color.alpha(start)) * progress));
-        byte r = (byte) (Color.red(start) + (int) ((Color.red(end) - Color.red(start)) * progress));
-        byte g = (byte) (Color.green(start) + (int) ((Color.green(end) - Color.green(start)) * progress));
-        byte b = (byte) (Color.blue(start) + (int) ((Color.blue(end) - Color.blue(start)) * progress));
+        progress = how.getInterpolation(progress);
+        int a = Color.alpha(start) + (int) ((Color.alpha(end) - Color.alpha(start)) * progress);
+        int r = Color.red(start) + (int) ((Color.red(end) - Color.red(start)) * progress);
+        int g = Color.green(start) + (int) ((Color.green(end) - Color.green(start)) * progress);
+        int b = Color.blue(start) + (int) ((Color.blue(end) - Color.blue(start)) * progress);
         return Color.argb(a, r, g, b);
     }
 

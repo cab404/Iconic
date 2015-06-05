@@ -25,7 +25,6 @@ public class VectorIcon {
 
     public List<ShapeBundle> iconData = new ArrayList<>();
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    public int typeStamp = 0;
 
     public VectorIcon(Context ctx, @XmlRes int xml_id) {
         try {
@@ -45,9 +44,6 @@ public class VectorIcon {
                     // Simple type check
                     if (!ShapeProcessor.class.isAssignableFrom(converterClass))
                         throw new RuntimeException("Class " + converterClass + " cannot be casted to ShapeProcessor!");
-
-                    // Updating type stamp
-                    typeStamp ^= converterClass.hashCode();
 
                     // We're now pretty sure that is a ShapeProcessor
                     //noinspection unchecked
