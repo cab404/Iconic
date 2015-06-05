@@ -76,6 +76,6 @@ public class Line implements ShapeProcessor<LineData> {
         SerializationUtils.parsePointF(lineData.a, xml.getAttributeValue(null, "a"));
         SerializationUtils.parsePointF(lineData.b, xml.getAttributeValue(null, "b"));
         lineData.thickness = xml.getAttributeFloatValue(null, "thickness", 0.1f);
-        lineData.color = xml.getAttributeIntValue(null, "color", Color.CYAN);
+        lineData.color = xml.getAttributeIntValue(null, "color", Color.WHITE);
     }
 }

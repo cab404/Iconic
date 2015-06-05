@@ -6,7 +6,7 @@ import android.view.animation.Interpolator;
 
 /**
  * Methods for interpolating objects
- *
+ * <p/>
  * <p/>
  * Created at 10:54 on 03/06/15
  *
@@ -43,6 +43,27 @@ public class InterpolationUtils {
         }
     };
 
+
+    /**
+     * (cos((1 - x) * pi / 0.8 - 0.2 * pi) + 1) / 2 * 1.1
+     */
+    public static final Interpolator IP_END_BUMP = new Interpolator() {
+        @Override
+        public float getInterpolation(float input) {
+            return (float) ((Math.cos((1 - input) * Math.PI / 0.8 - 0.2 * Math.PI) + 1) / 2 * 1.1);
+        }
+    };
+
+    /**
+     * (cos(x * pi / 0.8 - pi) + 1) / 2 * 1.1
+     */
+    public static final Interpolator IP_START_BUMP = new Interpolator() {
+        @Override
+        public float getInterpolation(float input) {
+            return (float) ((Math.cos(input * Math.PI / 0.8 + 0.8 * Math.PI) + 0.8) / 2 * 1.1);
+        }
+    };
+
     /**
      * Interpolates between two floats
      */
@@ -55,6 +76,11 @@ public class InterpolationUtils {
      */
     public static int interpolateColor(int start, int end, float progress, Interpolator how) {
         progress = how.getInterpolation(progress);
+
+        // Clamping, only for colors.
+        if (progress > 1) progress = 1;
+        if (progress < 0) progress = 0;
+
         int a = Color.alpha(start) + (int) ((Color.alpha(end) - Color.alpha(start)) * progress);
         int r = Color.red(start) + (int) ((Color.red(end) - Color.red(start)) * progress);
         int g = Color.green(start) + (int) ((Color.green(end) - Color.green(start)) * progress);

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.annotation.XmlRes;
-import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -26,7 +24,7 @@ public class VectorIcon {
     public List<ShapeBundle> iconData = new ArrayList<>();
     protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    public VectorIcon(Context ctx, @XmlRes int xml_id) {
+    public VectorIcon(Context ctx, int xml_id) {
         try {
             XmlResourceParser xml = ctx.getResources().getXml(xml_id);
             while (xml.next() != XmlPullParser.END_DOCUMENT) {

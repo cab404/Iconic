@@ -28,9 +28,9 @@ public class TestActivity extends Activity {
 
         final VectorIconInterpolator vii = new VectorIconInterpolator();
         vii.newInterpolation(
-                new VectorIcon(this, R.xml.star),
                 new VectorIcon(this, R.xml.plus),
-                InterpolationUtils.IP_LOGARITHMIC
+                new VectorIcon(this, R.xml.star),
+                InterpolationUtils.IP_START_BUMP
         );
 
         VectorIcon icon = vii.interpolate(0f);
