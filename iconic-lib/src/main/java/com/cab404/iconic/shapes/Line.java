@@ -5,12 +5,12 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.view.animation.Interpolator;
 
 import com.cab404.iconic.numbers.InterpolationUtils;
 import com.cab404.iconic.numbers.SerializationUtils;
 import com.cab404.iconic.numbers.ShapeProcessor;
+import com.cab404.iconic.shapes.data.LineData;
 
 /**
  * Line. Yup, line, that's all.
@@ -48,12 +48,15 @@ public class Line implements ShapeProcessor<LineData> {
 
     @Override
     public void interpolate(float p, Interpolator i, LineData a, LineData b, LineData c) {
-        if (a == null ^ b == null) {
-            if (b == null) b = a;
+        if (a == null || b == null) {
+            if (b == null) {
+                p = 1 - p;
+                b = a;
+            }
             c.a.set(b.a);
             c.b.set(b.b);
             c.thickness = InterpolationUtils.interpolateFloat(0, b.thickness, p, i);
-            c.color = b.color;
+            c.color = InterpolationUtils.interpolateColor(0, b.color, p, i);
             return;
         }
         InterpolationUtils.interpolatePointF(a.a, b.a, c.a, p, i);

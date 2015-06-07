@@ -22,7 +22,6 @@ public class VectorIcon {
     static final ConstructingPool<ShapeProcessor> PROCESSORS = new ReflectivePool<>();
 
     public List<ShapeBundle> iconData = new ArrayList<>();
-    protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     public VectorIcon(Context ctx, int xml_id) {
         try {
@@ -72,7 +71,7 @@ public class VectorIcon {
     public VectorIcon() {
     }
 
-    public void draw(Canvas cvs) {
+    public void draw(Canvas cvs, Paint paint) {
         for (ShapeBundle shape : iconData) {
             //noinspection unchecked
             shape.processor.draw(cvs, paint, shape.data);

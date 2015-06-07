@@ -3,11 +3,7 @@ package com.cab404.iconic.test;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.SeekBar;
-
-import com.cab404.iconic.numbers.InterpolationUtils;
 import com.cab404.iconic.numbers.VectorIcon;
-import com.cab404.iconic.numbers.VectorIconInterpolator;
 import com.cab404.iconic.ui.VectorIconDrawable;
 
 /**
@@ -26,32 +22,31 @@ public class TestActivity extends Activity {
         setContentView(R.layout.test);
         VectorIconDrawable d = new VectorIconDrawable();
 
-        final VectorIconInterpolator vii = new VectorIconInterpolator();
-        vii.newInterpolation(
-                new VectorIcon(this, R.xml.plus),
-                new VectorIcon(this, R.xml.star),
-                InterpolationUtils.IP_START_BUMP
-        );
+        d.setIcon(new VectorIcon(this, R.xml.star));
+        d.setIcon(new VectorIcon(this, R.xml.plus));
+        d.setIcon(new VectorIcon(this, R.xml.drawer));
+        d.setIcon(new VectorIcon(this, R.xml.quad));
+//        d.setIcon(new VectorIcon(this, R.xml.empty));
+        d.setIcon(new VectorIcon(this, R.xml.play));
+        d.setIcon(new VectorIcon(this, R.xml.drawer));
+        d.setIcon(new VectorIcon(this, R.xml.quad));
 
-        VectorIcon icon = vii.interpolate(0f);
-        d.setIcon(icon);
-
-        ((SeekBar) findViewById(R.id.progress)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                vii.interpolate(progress / 1000f);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+//        ((SeekBar) findViewById(R.id.progress)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                vii.interpolate(progress / 1000f);
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
 
         ((ImageView) findViewById(R.id.icon)).setImageDrawable(d);
     }
