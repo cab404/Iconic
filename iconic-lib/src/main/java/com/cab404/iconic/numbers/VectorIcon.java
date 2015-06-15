@@ -19,10 +19,20 @@ import java.util.List;
  */
 public class VectorIcon {
 
+    /**
+     * Icon processors
+     */
     static final ConstructingPool<ShapeProcessor> PROCESSORS = new ReflectivePool<>();
 
+    /**
+     * Shapes of this object
+     */
     public List<ShapeBundle> iconData = new ArrayList<>();
 
+
+    /**
+     * Creates new icon from file
+     */
     public VectorIcon(Context ctx, int xml_id) {
         try {
             XmlResourceParser xml = ctx.getResources().getXml(xml_id);
@@ -68,6 +78,9 @@ public class VectorIcon {
         }
     }
 
+    /**
+     * Creates an empty icon
+     */
     public VectorIcon() {
     }
 

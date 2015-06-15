@@ -7,12 +7,12 @@ package com.cab404.iconic.numbers;
  *
  * @author cab404
  */
-public class ShapeBundle {
+public class ShapeBundle<Processor extends ShapeProcessor> {
     public Object data;
-    public ShapeProcessor processor;
+    public Processor processor;
     public int id = -1;
 
-    public ShapeBundle(ShapeProcessor processor, Object data) {
+    public ShapeBundle(Processor processor, Object data) {
         this.data = data;
         this.processor = processor;
     }

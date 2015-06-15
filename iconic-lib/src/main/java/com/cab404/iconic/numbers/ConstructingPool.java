@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public abstract class ConstructingPool<Type> {
 
-    protected Map<Class<? extends Type>, Type> instances = new HashMap<Class<? extends Type>, Type>();
+    protected Map<Class<? extends Type>, Type> instances = new HashMap<>();
 
     /**
      * Creates a new instance of given class.
